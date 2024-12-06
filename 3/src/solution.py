@@ -26,5 +26,21 @@ Base.metadata.create_all(engine)
 
 
 # BEGIN (write your solution here)
+from sqlalchemy.orm import sessionmaker
 
+def add_books(engine):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    try:
+        books = [
+            Book(title="To Kill a Mockingbird", author="Harper Lee", published_year=1960),
+            Book(title="1984", author="George Orwell", published_year=1949),
+        ]
+        session.add_all(books)
+        session.commit()
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
 # END

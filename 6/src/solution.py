@@ -16,5 +16,9 @@ Base.metadata.create_all(engine)
 
 
 # BEGIN (write your solution here)
+def get_movies_with_directors(session):
+    movies_with_directors = session.query(Movie).options(joinedload(Movie.director)).order_by(Movie.title).all()
+    
 
+    return movies_with_directors
 # END
